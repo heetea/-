@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 12 14:27:19 2019
+
+@author: Keis
+"""
+from savReaderWriter import SavWriter
+import pandas as pd
+
+job = pd.read_csv('job.csv')
+job = job.drop(columns='Unnamed: 0')
+savFileName = 'job.sav'
+varlist = list(job.columns)
+x = dict()
+for var in varlist:
+    x[var]=0
+x['jobwave']=5
+args = ( varlist, x )
+array = job.values
+with SavWriter(savFileName, *args) as writer:
+    writer.writerows(array)
